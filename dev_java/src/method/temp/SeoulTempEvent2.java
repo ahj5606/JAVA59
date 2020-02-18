@@ -26,6 +26,7 @@ public class SeoulTempEvent2 implements ActionListener , FocusListener , ItemLis
 				stv.month = (String) stv.jcb_month.getSelectedItem();
 			}
 		}
+		
 		if(obj==stv.jcb_year) {
 			
 			stv.jcb_month.removeAllItems();

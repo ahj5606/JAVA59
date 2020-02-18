@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -44,6 +45,8 @@ public class SeoulTempView2{
 	JTableHeader		jth_temp		= new JTableHeader();
 	JFrame 				jf_temp 		= new JFrame();
 	JPanel				jp_north	= new JPanel();
+	ArrayList  as = new ArrayList();
+	
 	//생성자
 	public SeoulTempView2() {
 		//생성자에서 메소드를 호출할 수 있다.

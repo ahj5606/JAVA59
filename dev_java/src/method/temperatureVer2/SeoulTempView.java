@@ -28,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import method.temparature.SeoulTempVO;
+
 public class SeoulTempView implements ActionListener, FocusListener {
     //선언부
     Connection          con     = null;//전역변수 선언하기 - 클래스() 전역에서 사용가능함.
@@ -66,10 +68,10 @@ public class SeoulTempView implements ActionListener, FocusListener {
     String ta_date = "";
     //생성자
     public SeoulTempView() {
-        years = stDao.getTempList(stVO);
-        ________ = new JComboBox(years);
+        years = stDao.getYear();
+        jcb_year = new JComboBox(years);
         //생성자에서 메소드 호출 할 수 있다.
-        initDisplay();
+        initDisplay();//화면을 그려주세요.
     }
     
     //화면 처리부
@@ -126,44 +128,44 @@ public class SeoulTempView implements ActionListener, FocusListener {
             ta_date = jtf_date.getText();
             List<Map<String,Object>> list = null;
             SeoulTempVO stVO = new SeoulTempVO();
-            stVO.setTa_date(ta_date);
+            stVO.setSdate(ta_date);
             list = stDao.getTempList(stVO);
             while(dtm_temp.getRowCount()>0) {
                 dtm_temp.removeRow(0);
             }
             for(int i=0;i<list.size();i++) {
-                Vector<Object> v = new _______<>();
-                v.add(list.get(i).get("ta_date"));
-                v.add(list.get(i).get("________"));
-                v._____(list.get(i).get("________"));
+                Vector<Object> v = new Vector<>();
+                v.add(list.get(i).get("sdate"));
+                v.add(list.get(i).get("mitemp"));
+                v.add(list.get(i).get("matemp"));
                 dtm_temp.addRow(v);
             }
         }
         else if(obj == jcb_year) {
             System.out.println(""+jcb_year.getSelectedItem());
-            _______ = (String)jcb_year.getSelectedItem();
-            _______ = stDao.getMonth(uYear);
+            uYear = (String)jcb_year.getSelectedItem();
+            months = stDao.getMonth(uYear);
             jp_north.remove(jcb_mm);
-            jcb_mm = ______;
+            jcb_mm = null;
             jcb_mm = new JComboBox(months); 
-            _______.addActionListener(this);
+            jcb_mm.addActionListener(this);
             jp_north.add(jcb_mm,1);
             Container cont = jf_temp.getContentPane();
             cont.revalidate();
         }
         else if(obj == jcb_mm) {
-            uMonth = (_______)_________.getSelectedItem();
+            uMonth = (String)jcb_mm.getSelectedItem();
             System.out.println("월 "+uMonth);
         }
-        else if(obj == ________) {
+        else if(obj == jbtn_search) {
             System.out.println("조회 버튼");
             List<Map<String,Object>> list = null;
             SeoulTempVO stVO = new SeoulTempVO();
-            if("날짜를 입력하세요."._______(jtf_date.getText())) {
-                stVO.setnYear(_______);
-                stVO.setnMonth(________);
+            if("날짜를 입력하세요.".equals(jtf_date.getText())) {
+                stVO.setnYear(uYear);
+                stVO.setnMonth(uMonth);
             }else {
-                stVO.setTa_date(_______);               
+                stVO.setSdate(ta_date);               
             }
             list = stDao.getTempList(stVO);
             while(dtm_temp.getRowCount()>0) {
@@ -171,16 +173,16 @@ public class SeoulTempView implements ActionListener, FocusListener {
             }
             for(int i=0;i<list.size();i++) {
                 Vector<Object> v = new Vector<>();
-                v.add(_____.get(i).get("______"));
-                v.add(list.get(i).____("ta_low"));
-                v.add(list.get(i).get("ta_high"));
-                ________.addRow(__);
+                v.add(list.get(i).get("sdate"));
+                v.add(list.get(i).get("mitemp"));
+                v.add(list.get(i).get("matemp"));
+                dtm_temp.addRow(v);
             }           
         }
     }
     @Override
     public void focusGained(FocusEvent e) {
-        if(e.getSource() == _______) {
+        if(e.getSource() == jtf_date) {
             jtf_date.setText("");
         }       
     }

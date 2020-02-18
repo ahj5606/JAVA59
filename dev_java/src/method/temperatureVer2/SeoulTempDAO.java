@@ -12,6 +12,8 @@ import java.util.Vector;
 
 import com.util.DBConnectionMgr;
 
+import method.temparature.SeoulTempVO;
+
 public class SeoulTempDAO {
     DBConnectionMgr dbMgr = DBConnectionMgr.getInstance();
     Connection con = null;
@@ -84,7 +86,7 @@ public class SeoulTempDAO {
             if(stVO.getSdate()!=null) {           
                 pstmt.setString(1, stVO.getSdate());
             }else {
-                imsi = stVO.getnYear()+"/"+stVO.getmMonth()+"%";
+                imsi = stVO.getnYear()+"/"+stVO.getnMonth()+"%";
                 pstmt.setString(1, imsi);
             }
             System.out.println("? ==>"+imsi);

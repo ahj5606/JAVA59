@@ -2,6 +2,8 @@ package com.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import oracle.jdbc2.JDBCTest;
 
@@ -38,4 +40,48 @@ public class DBConnectionMgr {
 		
 		return con;
 	}
+	/* DBConnectionMgr은 여러 업무에서 공통으로 사용하는 클래스 입니다.
+	 * 사용한 자원(Connnction, PreparedStatement, ResultSet)은 
+	 * 반드시 반납을 하도록 합니다.
+	 * 동시 접속자 수가 많은 시스템에서 자원사용은 곧 메모리랑 직결되므로 
+	 * 서버가 다운되거나 시스템 장애 발생에 원인이 됩니다.
+	 */
+	public void freeConnection(Connection con
+			                 , PreparedStatement pstmt
+			                 , ResultSet rs) {
+		try {
+		//사용자원의 생성 역순으로 반환할것.	
+			if(rs!=null) {
+				rs.close();
+			}
+			if(pstmt!=null) {
+				pstmt.close();
+			}
+			if(con!=null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			System.out.println("Exception : "+e.toString());
+		}
+	}
+	//자바에서는 같은 이름의 메소드를 여러개 만들 수 있다.
+	//1)메소드 오버로딩 - 파라미터갯수
+	//2)메소드 오버라이딩
+	public void freeConnection(Connection con
+			, PreparedStatement pstmt) {
+		try {
+			//사용자원의 생성 역순으로 반환할것.	
+			if(pstmt!=null) {
+				pstmt.close();
+			}
+			if(con!=null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			System.out.println("Exception : "+e.toString());
+		}
+	}
+	
+	
+	
 }
