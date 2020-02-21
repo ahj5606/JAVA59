@@ -1,0 +1,5 @@
+CREATE TABLE CHATINFO(
+    U_ID VARCHAR2(15)
+   ,U_PW varchar2(15)
+   ,constraint u_id_chatinfo_pk primary key (u_id)
+)
