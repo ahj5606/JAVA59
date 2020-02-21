@@ -7,8 +7,7 @@ import java.util.List;
 public class RandomName {
 	String name;
 	RandomName(){
-		String name = name();
-		this.name= name;
+		this.name = name();
 		
 	}
 	public String name() {

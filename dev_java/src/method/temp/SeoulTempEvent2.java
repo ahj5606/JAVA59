@@ -10,7 +10,7 @@ import java.awt.event.ItemListener;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-public class SeoulTempEvent2 implements ActionListener , FocusListener , ItemListener {
+public class SeoulTempEvent2 implements ActionListener, FocusListener , ItemListener {
 	SeoulTempView2 stv = null;
 	SeoulTempLogic2 stl = new SeoulTempLogic2(this);
 	

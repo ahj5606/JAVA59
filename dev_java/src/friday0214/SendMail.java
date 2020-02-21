@@ -43,6 +43,7 @@ public class SendMail {
 			mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receiveEmailAddress));
 			mimeMessage.setSubject(subject);
 			mimeMessage.setText(content);
+			
 			Transport.send(mimeMessage);
 			System.out.print("message sent successfully..."); 
 		} catch (AddressException e) { 

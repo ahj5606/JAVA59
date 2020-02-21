@@ -87,7 +87,7 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 	}
 	//물리적으로 떨어져 있는 오라클 서버와 연결통로 만들기
 	//새로 고침 기능을 구현해 보자 -SELECT
-	public void refreshData(String myDong,String zdo,String sigu) {
+	public Vector<ZipCodeVO> refreshData(String myDong,String zdo,String sigu) {
 		con=null;
 		int col=1;
 		int orderby=0;
@@ -96,7 +96,7 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 		sb.append("SELECT address , zipcode ");
 		sb.append(" FROM zipcode_t");
 		sb.append(" WHERE 1=1 ");
-		Vector<ZipCodeVO> v = new Vector<>();
+		Vector<ZipCodeVO> v = null;
 		ZipCodeVO zcVOS[] =null;
 		ZipCodeVO zcVO =null;
 		con = dbMgr.getConnection();
@@ -122,6 +122,7 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 			if(sigu !=null && sigu.length()>0) {
 				pstmt.setString(col++, sigu);
 			}
+			 v = new Vector<>();
 			rs = pstmt.executeQuery();
 			while(rs.next()) {//커서이동,커서이동
 				zcVO= new ZipCodeVO();
@@ -162,7 +163,7 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 		} catch(Exception e) {//그 밖의 문제가 발생할 경우 잡아준다.
 			System.out.println("[[Exception]]"+e);
 		}
-		
+		return v;
 	}
 	
 	public String[] getZdos() {
