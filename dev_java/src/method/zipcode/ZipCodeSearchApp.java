@@ -57,6 +57,7 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 	DBConnectionMgr		dbMgr		= DBConnectionMgr.getInstance();
 	JTextField 			jtf_dong 	= new JTextField("동이름을 입력하세요.");
 	JButton 			jbtn_search = new JButton("조회");
+	JButton				jbtn_del = new JButton("삭제");
 	//오라클에서 조회한 결과를 담을 클래스 선언하기
 	//테이블의 헤더 설정하기
 	String				cols[]		= {"주소","우편번호"};
@@ -261,17 +262,18 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 		jp_north.setBackground(Color.RED);
 		jcb_zdo.addItemListener(this);
 		jbtn_search.addActionListener(this);
+		jbtn_del.addActionListener(this);
 		jtf_dong.addActionListener(this);
 		jtf_dong.addFocusListener(this);
 		jp_north.add(jcb_zdo);
 		jp_north.add(jcb_sigu);
 		jp_north.add(jtf_dong);
 		jp_north.add(jbtn_search);
+		jp_north.add(jbtn_del);
 		//JFrame판넬 위에 북쪽에 jp_north속지를 붙이자.
 		//속지안에 버튼과 텍스트필드가 붙어 있으니까 같이 따라온다.
 		jf_zip.add("North",jp_north);
 		//이벤트가 일어난 소스와 이벤트를 처리하는 클래스(actionPerfomed)를 연결해준다.
-		
 		jf_zip.add("Center",jsp_zip);
 		jf_zip.setTitle("우편번호 검색");
 		jf_zip.setSize(600,500);
@@ -300,6 +302,13 @@ public class ZipCodeSearchApp implements ActionListener, FocusListener, ItemList
 				//단 파라미터의 갯수가 다르거나 파라미터의 타입이 반드시 달라야 한다.
 				refreshData(myDong,zdo,sigu);
 			} catch (Exception e) {
+			}
+		}else if(obj==jbtn_del) {
+			int index[] = jt_zip.getSelectedRows();
+			
+			for(int row :index) {
+				JOptionPane.showMessageDialog(jf_zip, row);
+				dtm_zip.removeRow(row);
 			}
 		}
 	}
